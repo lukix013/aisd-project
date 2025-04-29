@@ -1,4 +1,4 @@
-#include "Headers/residual.h"
+#include "residual.h"
 #include <algorithm> // std::min
 
 ResidualNetwork::ResidualNetwork(int vertices) : vertices(vertices) {
