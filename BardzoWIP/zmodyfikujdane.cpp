@@ -91,7 +91,7 @@ std::vector<int> zmodyfikujDane::modDane(std::string& filePath, int mode) {
         inputFile.close();
         throw;
     }
-        if (!std::getline(inputFile, line)) throw std::runtime_error("Skrzyzowanie problem w czytaniu");
+        if (std::getline(inputFile, line)){
         std::stringstream ss4(line);
         int n4;
         if (!(ss4 >> n4) || n4 < 0) throw std::runtime_error("niewlasciwy format");
@@ -99,6 +99,7 @@ std::vector<int> zmodyfikujDane::modDane(std::string& filePath, int mode) {
             int v;
             if (!(ss4 >> v)) throw std::runtime_error("Skrzyzowanie problem w czytaniu");
             if (v < 0 || v >= N) throw std::out_of_range("Skrzyzowanie poza zakresem " + std::to_string(v));
+        }
         }
 
         int M; // ile lini
