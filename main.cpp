@@ -7,7 +7,10 @@ int main()
 	//Siec s("Sieci/siec.txt");
 	//s.print_siec();
 	//s.print_list();
-	//DataGenerator dg;
+	//ResidualNetwork rn(5);
+	DataGenerator dg;
+	dg.print_flow_network();
+	//DataGenerator dg2(1);
 
 	return 0;
 }
