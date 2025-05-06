@@ -6,6 +6,7 @@
 #include <cstdlib>
 #include <ctime>
 #include <vector>
+#include <fstream>
 
 class DataGenerator{
 public:
@@ -16,6 +17,7 @@ public:
 private:
     int points; //Ile punktow(s i t wlacznie?)
     std::vector<std::vector<int>> AdjList;
+    std::fstream plik;
 };
 
 #endif

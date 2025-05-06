@@ -20,12 +20,16 @@ void DataGenerator::generate_flow_network(){
         int rand_flow = rand() % rand_capacity;
         std::vector<int> temp;
         temp.push_back(rand_capacity);
+        temp.push_back(rand_flow);
         AdjList.push_back(temp);
     }
 }
 
 void DataGenerator::print_flow_network(){
     for(int i=0;i<AdjList.size();i++){
-        std::cout << AdjList[i][0] << std::endl;
+        for(int j=0;j<AdjList[i].size();j++){
+            std::cout << AdjList[i][j] << " ";
+        }
+        std::cout << std::endl;
     }
 }
