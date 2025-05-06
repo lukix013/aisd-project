@@ -7,7 +7,7 @@ int main()
 	//Siec s("Sieci/siec.txt");
 	//s.print_siec();
 	//s.print_list();
-	DataGenerator dg;
+	//DataGenerator dg;
 
 	return 0;
 }
