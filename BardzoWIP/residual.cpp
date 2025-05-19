@@ -8,8 +8,21 @@ void ResidualNetwork::addEdges(std::string& filePath, int mode){
     std::vector<int> Edges;
     zmodyfikujDane Stefan;
     Edges=Stefan.modDane(filePath, mode);
-    for(int i=0;i<Edges.size();i+=3){
-        ResidualNetwork::addEdge(Edges[i], Edges[i+1], float(Edges[i+2]));
+    //debug
+    /*
+std::cout << "Edges zawartosc:" << std::endl;
+for (int i = 0; i < Edges.size(); ++i) {
+    std::cout << Edges[i] << " ";
+    if ((i + 1) % 3 == 0) {
+        std::cout << std::endl;
+    }
+}
+*/
+float d=0;
+    for(int i = 0; i < Edges.size(); i+=3){
+        //std::cout << "Dodawanie krawedzi nr: " <<i<< std::endl; //tez do debugu
+        ResidualNetwork::addEdge(Edges[i], Edges[i+1], (float)(Edges[i+2]));
+
     }
 }
 void ResidualNetwork::addEdge(int from, int to, float capacity) {
@@ -21,6 +34,7 @@ void ResidualNetwork::addEdge(int from, int to, float capacity) {
 
     adjList[from].push_back(forward);
     adjList[to].push_back(backward);
+
 }
 
 bool ResidualNetwork::bfs(int source, int sink, std::vector<Edge*>& parent) {

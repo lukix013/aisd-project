@@ -10,7 +10,7 @@ ile zwyklych skrzyzowan*/
 std::vector<int> zmodyfikujDane::modDane(std::string& filePath, int mode) {
 
     if (mode != 0 && mode != 1) {
-        throw std::invalid_argument("Musi byc 1, albo 0");
+        throw std::invalid_argument("Tryb musi byc 1, albo 0");
     }
 
     std::ifstream inputFile(filePath);
