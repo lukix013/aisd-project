@@ -1,7 +1,9 @@
 #include "residual.h"
 #include <algorithm> // std::min
 
+
 ResidualNetwork::ResidualNetwork(int vertices) : vertices(vertices) {
+    this->mFlow=FLT_MAX;
     adjList.resize(vertices);
 }
 void ResidualNetwork::addEdges(std::string& filePath, int mode){
@@ -19,15 +21,15 @@ for (int i = 0; i < Edges.size(); ++i) {
 }
 */
 float d=0;
-    for(int i = 0; i < Edges.size(); i+=3){
+    for(int i = 0; i < Edges.size(); i+=4){ //TO DO: uwzglednienie kosztu w zmodifikujDane
         //std::cout << "Dodawanie krawedzi nr: " <<i<< std::endl; //tez do debugu
-        ResidualNetwork::addEdge(Edges[i], Edges[i+1], (float)(Edges[i+2]));
+        ResidualNetwork::addEdge(Edges[i], Edges[i+1], (float)(Edges[i+2]), (float)(Edges[i+3]));
 
     }
 }
-void ResidualNetwork::addEdge(int from, int to, float capacity) {
-    Edge* forward = new Edge(from, to, capacity);
-    Edge* backward = new Edge(to, from, 0); // Początkowo brak przepustowości w przeciwną stronę
+void ResidualNetwork::addEdge(int from, int to, float capacity, float cost) {
+    Edge* forward = new Edge(from, to, capacity, cost);
+    Edge* backward = new Edge(to, from, 0, cost); // Początkowo brak przepustowości w przeciwną stronę
 
     forward->reverse = backward;
     backward->reverse = forward;
@@ -85,6 +87,12 @@ float ResidualNetwork::maxFlow(int source, int sink) {
 
         totalFlow += pathFlow;
     }
-
+    this->mFlow=totalFlow;
     return totalFlow;
+}
+
+std::vector<ResidualNetwork> genWariantyKosztu(){ //wip
+    std::vector<ResidualNetwork> warianty;
+
+
 }
