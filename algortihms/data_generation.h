@@ -7,6 +7,7 @@
 #include <ctime>
 #include <vector>
 #include <fstream>
+#include <set>
 
 class DataGenerator{
 public:
@@ -14,6 +15,9 @@ public:
     DataGenerator(int points);
     void generate_flow_network();
     void print_flow_network();
+    bool road_exists(int s,int t);
+
+
 private:
     int points; //Ile punktow(s i t wlacznie?)
     std::vector<std::vector<int>> AdjList;
