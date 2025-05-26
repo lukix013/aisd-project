@@ -20,14 +20,14 @@ std::vector<int> zmodyfikujDane::modDane(std::string& filePath, int mode) {
 
     std::vector<int> edges;
     std::string line;
-    int N;
+    int N; // l. oryginalnych wierzcholkow
 
     if (!std::getline(inputFile, line)) {
-        throw std::runtime_error("Problem w czytaniu ilosci wektorow");
+        throw std::runtime_error("Problem w czytaniu ilosci wierzcholkow");
     }
     std::stringstream ssN(line);
     if (!(ssN >> N) || N < 0) {
-        throw std::runtime_error("Niewlasciwa ilosc verteksow");
+        throw std::runtime_error("Niewlasciwa ilosc wierzcholkow");
     }
     int source = N;
     int sink = N + 1;
@@ -35,17 +35,18 @@ std::vector<int> zmodyfikujDane::modDane(std::string& filePath, int mode) {
     try {
         if (!std::getline(inputFile, line)) throw std::runtime_error("Problem w czytaniu pola");
         std::stringstream ss1(line);
-        int n1;
-        if (!(ss1 >> n1) || n1 < 0) throw std::runtime_error("Problem w czytaniu pola");
-        for (int i = 0; i < n1; ++i) {
+        int n1; //numer pola
+        if (!(ss1 >> n1) || n1 < 0) throw std::runtime_error("Problem w czytaniu pola "+ std::to_string(n1));
+        for (int i = 0; i < n1; i++) {
             int v, cap;
-            if (!(ss1 >> v >> cap)) throw std::runtime_error("Problem w czytaniu pola");
+            if (!(ss1 >> v >> cap)) throw std::runtime_error("Problem w czytaniu pola"+ std::to_string(n1));
             if (v < 0 || v >= N) throw std::out_of_range("Pole poza zakresem " + std::to_string(v));
 
             if (mode == 0 && cap > 0) {
                 edges.push_back(source);
                 edges.push_back(v);
                 edges.push_back(cap); //zakladam ze drogi maja przepustowosc calkowita
+                edges.push_back(0); //to sa "sztuczne" drogi wiec nie musimy ich naprawiac
             }
         }
 
@@ -59,14 +60,16 @@ std::vector<int> zmodyfikujDane::modDane(std::string& filePath, int mode) {
             if (v < 0 || v >= N) throw std::out_of_range("Browar poza zakresem " + std::to_string(v));
 
             if (cap > 0) {
-                if (mode == 0) {
+                if (mode == 0) { //Browary sa miejscami docelowymi
                     edges.push_back(v);
                     edges.push_back(sink);
                     edges.push_back(cap);
-                } else {
+                    edges.push_back(0); //tez "sztuczne"
+                } else { //Browary sa zrodlami
                     edges.push_back(source);
                     edges.push_back(v);
                     edges.push_back(cap);
+                    edges.push_back(0); //tez "sztuczne"
                 }
             }
         }
@@ -75,7 +78,7 @@ std::vector<int> zmodyfikujDane::modDane(std::string& filePath, int mode) {
         std::stringstream ss3(line);
         int n3;
         if (!(ss3 >> n3) || n3 < 0) throw std::runtime_error("Problem w czytaniu tawerny");
-        for (int i = 0; i < n3; ++i) {
+        for (int i = 0; i < n3; i++) {
             int v, cap;
             if (!(ss3 >> v >> cap)) throw std::runtime_error("Problem w czytaniu tawerny");
             if (v < 0 || v >= N) throw std::out_of_range("Tawerna poza zakresem:  " + std::to_string(v));
@@ -84,45 +87,29 @@ std::vector<int> zmodyfikujDane::modDane(std::string& filePath, int mode) {
                 edges.push_back(v);
                 edges.push_back(sink);
                 edges.push_back(cap);
+                edges.push_back(0); //tez "sztuczne"
             }
             }
         }
-        catch (const std::exception& e) {
-        inputFile.close();
-        throw;
-    }
+
+        int n4; //ile skrzyzowan
         if (std::getline(inputFile, line)){
         std::stringstream ss4(line);
-        int n4;
         if (!(ss4 >> n4) || n4 < 0) throw std::runtime_error("niewlasciwy format");
-        for (int i = 0; i < n4; ++i) {
-            int v;
-            if (!(ss4 >> v)) throw std::runtime_error("Skrzyzowanie problem w czytaniu");
-            if (v < 0 || v >= N) throw std::out_of_range("Skrzyzowanie poza zakresem " + std::to_string(v));
-        }
         }
 
-        int M; // ile lini
-        if (!std::getline(inputFile, line)) {
-            throw std::runtime_error("Error reading number of edges (M) from file.");
-        }
-        std::stringstream ssM(line);
-        if (!(ssM >> M) || M < 0) {
-            throw std::runtime_error("Invalid format for number of edges (M).");
-        }
-
-        for (int i = 0; i < M; ++i) {
+        for (int i = 0; i < n4; i++) {
             if (!std::getline(inputFile, line)) {
-                throw std::runtime_error("Problem w czytaniu linii " + std::to_string(i + 1) + ".");
+                throw std::runtime_error("Problem w czytaniu linii " + std::to_string(i + 1));
             }
             std::stringstream ssEdge(line);
-            int u, v, capacity;
-            if (!(ssEdge >> u >> v >> capacity)) {
-                throw std::runtime_error("Niewlasciwy format " + std::to_string(i + 1) + ".");
+            int u, v, capacity, cost;
+            if (!(ssEdge >> u >> v >> capacity >> cost)) {
+                throw std::runtime_error("Niewlasciwy format " + std::to_string(i + 1));
             }
 
             if (u < 0 || u >= N || v < 0 || v >= N) {
-                 throw std::out_of_range("Poza zakresem: u=" + std::to_string(u) + ", v=" + std::to_string(v));
+                 throw std::out_of_range("Poza zakresem: u=" + std::to_string(u) + " v=" + std::to_string(v));
             }
 
             // Dodaje krawedz jesli ma pojemnosc, ujemne krawedzie ma sens robic osobno
@@ -130,7 +117,12 @@ std::vector<int> zmodyfikujDane::modDane(std::string& filePath, int mode) {
                 edges.push_back(u);
                 edges.push_back(v);
                 edges.push_back(capacity);
+                edges.push_back(cost);
             }
+        }
+        catch (const std::exception& e) {
+        inputFile.close(); //trzeba zawsze pamietac o zamknieciu pliku
+        throw; //oddaje blad spowrotem
         }
 
     inputFile.close();
