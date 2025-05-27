@@ -21,7 +21,7 @@ for (int i = 0; i < Edges.size(); ++i) {
 }
 */
 float d=0;
-    for(int i = 0; i < Edges.size(); i+=4){ //TO DO: uwzglednienie kosztu w zmodifikujDane
+    for(int i = 0; i < Edges.size(); i+=4){
         //std::cout << "Dodawanie krawedzi nr: " <<i<< std::endl; //tez do debugu
         ResidualNetwork::addEdge(Edges[i], Edges[i+1], (float)(Edges[i+2]), (float)(Edges[i+3]));
 
@@ -29,8 +29,8 @@ float d=0;
 }
 void ResidualNetwork::addEdge(int from, int to, float capacity, float cost) {
     Edge* forward = new Edge(from, to, capacity, cost);
-    Edge* backward = new Edge(to, from, 0, cost); // Początkowo brak przepustowości w przeciwną stronę
-
+    Edge* backward = new Edge(to, from, 0, 0); // Początkowo brak przepustowości w przeciwną stronę
+    //tu ten brak kosztu w backward moze byc potem problemem, bo jesli o nim zapomnimy to bedziemy miec drogi 1-stronne
     forward->reverse = backward;
     backward->reverse = forward;
 
@@ -92,7 +92,36 @@ float ResidualNetwork::maxFlow(int source, int sink) {
 }
 
 std::vector<ResidualNetwork> genWariantyKosztu(){ //wip
-    std::vector<ResidualNetwork> warianty;
-
+    int howMany=0; //najpierw liczymy ile mamy drog do naprawy i ktore
+    vector<Edge*> which;
+    int howMany=0;
+    ResidualNetwork Champ; //najbardziej optymalna, dotychszas znaleziona siec
+   //w zalozeniu drogi sa 2-stronne i nie naprawiamy tylko w jedna, to trzeba o tym pamietac
+    for(int i=0; i<adjList.size();i++){
+        for(int j=0;j<adjList[i].size();j++){
+                if(adjList[i][j]->cost>0){
+            howMany++;
+            which.push_back(adjList[i][j]); //potem bedzie tez trzeba usunac ta w droga strone
+        }
+        }
+    }
+    maxFlow(vertices-2, vertices-1);
+    ResidualNetwork Wariant;
+    Wariant=this;
+    Edge edgeToRem;
+    for(int i=0;i<howMany;i++){
+        for(int j=0;j<this.adjList[i].size();j++){
+            if(this.adjList[i][j].cost>0){
+                edgeToRem=this.adjList[i][j];
+                this.adjList[i].erase(this.adjList[i].begin()+j);
+                for(int k=0;k<this.adjList[edgeToRem.to].size();k++){
+                    if ((this.adjList[edgeToRem.to][k].from==edgeToRem.to)&&(this.aadjList[edgeToRem.to][k].to==edgeToRem.from)
+                    &&(this.adjList[edgeToRem.to][k].cost==edgeToRem.cost)){
+                        this.adjList[i].erase(this.adjList[edgeToRem.to].begin()+k);
+                    }
+                }
+            }
+        }
+    }
 
 }
