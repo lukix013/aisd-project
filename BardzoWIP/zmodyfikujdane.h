@@ -14,8 +14,8 @@ ile pol, (nr. pola, prod)
 ile browarow, (nr, poj/prod)
 ile tawern (nr, poj)
 ile zwyklych skrzyzowan*/
-class zmodyfikujDane{
+class zmodyfikujDane {
 public:
-std::vector<int> modDane(std::string& filePath, int mode);
+	std::vector<float> modDane(std::string& filePath, int mode);
 };
 #endif
