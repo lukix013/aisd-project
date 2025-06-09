@@ -4,7 +4,7 @@
 #include "algortihms\pattern_search.h"
 int main()
 {
-	std::cout << "Hello" << std::endl;
+	//std::cout << "Hello" << std::endl;
 	//Siec s("Sieci/siec.txt");
 	//s.print_siec();
 	//s.print_list();
@@ -13,7 +13,7 @@ int main()
 	//dg.print_flow_network();
 	//DataGenerator dg2(5);
 	//dg2.print_flow_network();
-	Pattern_search ps(std::string("testing_files\\wzorzec.txt"),std::string("piwo"),true);
+	Pattern_search ps(std::string("testing_files\\wzorzec.txt"),std::string("browar"),true);
 	//Pattern_search ps(std::string("piwo,jęczmień,browar"),std::string("piwo"));
 	ps.Boyer_Moor();
 	return 0;
