@@ -46,23 +46,23 @@ int Pattern_search::Boyer_Moor(){
 
     std::map<char,int> LAST = Generate_LAST(AL,pattern); 
 
-    for(auto k:LAST){
-        std::cout << k.first << " " << k.second << " ";
-    }
-    std::cout << std::endl;
+    // for(auto k:LAST){
+    //     std::cout << k.first << " " << k.second << " ";
+    // }
+    // std::cout << std::endl;
 
     std::vector<int> BMNext = Generate_BMNext(pattern);
 
-    for(auto k:BMNext){
-        std::cout << k << " ";
-    }
-    std::cout << std::endl;
+    // for(auto k:BMNext){
+    //     std::cout << k << " ";
+    // }
+    // std::cout << std::endl;
 
     std::string& P = pattern;
     std::string& T = data;
     int m = P.size();
     int n = T.size();
-    std::cout << P << " " << T << std::endl;
+    //std::cout << P << " " << T << std::endl;
     int pp = 0;
     int i = 0;
     while(i<=n-m){
@@ -75,6 +75,7 @@ int Pattern_search::Boyer_Moor(){
         }else{
             pp=i+1;
             std::cout << "Wzorzec P wystepuje z przesunieciem " << i << std::endl;
+            //Potencjalnie zapisac w tablicy gdzie te przesuniecia wystepuja?
             i = i + BMNext[0];
         }
     }
@@ -118,12 +119,22 @@ std::vector<int> Pattern_search::Generate_BMNext(std::string P){
         PI[i]=b;
     }
 
-    for(auto k:PI){
-        std::cout << k << " ";
-    }
-    std::cout << std::endl;
+    // for(auto k:PI){
+    //     std::cout << k << " ";
+    // }
+    // std::cout << std::endl;
 
-    BMNext[0]=1;
+    b = PI[0];
+    for(int i=0;i<m+1;i++){
+        if(BMNext[i]==0){
+            BMNext[i]=b-1;
+        }
+        if(i==b){
+            b=PI[b];
+        }
+    }
+
+    //BMNext[0]=1;
 
     return BMNext;
 }
