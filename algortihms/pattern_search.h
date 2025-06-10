@@ -14,12 +14,17 @@ class Pattern_search{
         std::string data;
         std::set<char> AL;
         //std::vector<int> BMNext;
+        std::vector<int> shift_locations;
     public:
         Pattern_search(std::string data,std::string pattern);
         Pattern_search(std::string data,std::string pattern,bool isFile);
         std::map<char,int> Generate_LAST(std::set<char> al,std::string P);
         int Boyer_Moor(); //Zwracamy ile wzorców
         std::vector<int> Generate_BMNext(std::string P);
+        int KMP();
+        std::vector<int> Generate_PI(std::string P);
+        std::vector<int> get_shift_locations();
+        void print_shift_locations();
 };
 
 

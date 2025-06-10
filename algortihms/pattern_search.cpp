@@ -31,6 +31,7 @@ Pattern_search::Pattern_search(std::string data,std::string pattern,bool isFile)
 }
 
 int Pattern_search::Boyer_Moor(){
+    shift_locations.clear();
     int wynik=0;
     //Czyta alfabet tekstu
     for(char c: data){
@@ -76,6 +77,7 @@ int Pattern_search::Boyer_Moor(){
             pp=i+1;
             std::cout << "Wzorzec P wystepuje z przesunieciem " << i << std::endl;
             //Potencjalnie zapisac w tablicy gdzie te przesuniecia wystepuja?
+            shift_locations.push_back(i);
             i = i + BMNext[0];
         }
     }
@@ -137,4 +139,66 @@ std::vector<int> Pattern_search::Generate_BMNext(std::string P){
     //BMNext[0]=1;
 
     return BMNext;
+}
+
+int Pattern_search::KMP(){
+    shift_locations.clear();
+    std::vector<int> pi = Generate_PI(pattern);
+    int wynik=0;
+    /*for(auto k:pi){
+        std::cout << k << " ";
+    }
+    std::cout << std::endl;*/
+
+    int q = 0;
+    std::string& P = pattern;
+    std::string& T = data;
+    int n = T.size();
+    int m = P.size();
+    for(int i=0;i<n;i++){
+        //std::cout << i << " " << q << std::endl;
+        while(q>0 && P[q]!=T[i]){
+            q=pi[q];
+        }
+        if(P[q]==T[i]){
+            q=q+1;
+            //std::cout << q << std::endl;
+        }
+        if(q==m){
+            std::cout << "Wzorzec wystepuje z przesunieciem " << i-m+1 << std::endl;
+            shift_locations.push_back(i-m+1);
+            q=pi[q-1];
+        }
+
+    }
+
+    return wynik;
+}
+
+std::vector<int> Pattern_search::Generate_PI(std::string P){
+    int m = P.size();
+    std::vector<int> pi(m,0);
+    int k = 0;
+    for(int q=1;q<m;q++){
+        while(k>0 && P[k]!=P[q]){
+            k=pi[k-1];
+        }
+        if(P[k]==P[q]){
+            k=k+1;
+        }
+        pi[q]=k;
+    }
+
+    return pi;
+}
+
+std::vector<int> Pattern_search::get_shift_locations(){
+    return shift_locations;
+}
+
+void Pattern_search::print_shift_locations(){
+    for(auto x: shift_locations){
+        std::cout << x << " ";
+    }
+        std::cout << std::endl;
 }

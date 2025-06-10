@@ -14,7 +14,10 @@ int main()
 	//DataGenerator dg2(5);
 	//dg2.print_flow_network();
 	Pattern_search ps(std::string("testing_files\\wzorzec2.txt"),std::string("piwo"),true);
-	//Pattern_search ps(std::string("piwo,jęczmień,browar"),std::string("piwo"));
+	//Pattern_search ps(std::string("AAACABABACABBB"),std::string("ABABACA"));
 	ps.Boyer_Moor();
+	ps.print_shift_locations();
+	ps.KMP();
+	ps.print_shift_locations();
 	return 0;
 }
