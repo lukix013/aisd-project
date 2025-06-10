@@ -1,0 +1,118 @@
+//przede wszystkim trzeba dodac zapis i wczyt drzewa do pliku
+#include <iostream>
+#include <queue>
+#include <unordered_map>
+#include <vector>
+#include <fstream>
+
+using namespace std;
+
+class Node{
+    public:
+    int val;
+    char cha;
+    Node* left;
+    Node* right;
+    Node (char cha, int val){
+        this->val=val;
+        this->cha=cha;
+        this->left=nullptr;
+        this->right=nullptr;
+    }
+    Node (char cha, int val, Node* left, Node* right){
+        this->val=val;
+        this->cha=cha;
+        this->left=left;
+        this->right=right;
+    }
+
+};
+struct compare{
+bool operator()(Node* l, Node* r)
+    {
+        return l->val > r->val;
+    }
+    };
+void wyliczKody(Node* curr, string str, unordered_map<char, string>& huffman){
+    if(curr==nullptr){
+        return;
+    }
+    if(curr->left==nullptr && curr->right==nullptr){
+        huffman[curr->cha]=str;
+        return;
+    }
+    wyliczKody(curr->left, str+"0", huffman);
+    wyliczKody(curr->right, str+"1", huffman);
+}
+std::string decode(std::string str, Node* root){
+            std::string out="";
+            Node* curr = root;
+
+            for (char bit : str) {
+                if (bit == '0') {
+                    curr = curr->left;
+                }
+                else {
+                    curr = curr->right;
+                }
+
+                if (!curr->left && !curr->right) {
+                    out+=curr->cha;
+                    curr = root;
+                }
+            }
+            return out;
+}
+void DrzewoHuffmana(string txt){
+    unordered_map<char, int> freq;
+    for (char cha : txt){
+        freq[cha]++;
+    }
+
+    priority_queue<Node*, vector<Node*>, compare> qju;
+    for (auto a : freq){ //kazdy lisc staje sie Node'em
+        qju.push(new Node(a.first, a.second));
+    }
+    while(qju.size()>1){
+        Node* left=qju.top();
+        qju.pop();
+        Node* right=qju.top();
+        qju.pop();
+
+        qju.push(new Node('\0', left->val+right->val, left, right));
+    }
+    Node* root=qju.top();
+
+    unordered_map<char, string> huffman;
+    wyliczKody(root, "", huffman); //wpisanie czegos zamiast "" daje wszystkim kodom prefiks
+    std::cout<<"Kody: "<<std::endl;
+    for(auto p : huffman){
+        std::cout<<p.first<<"  :  "<<p.second<<std::endl;
+    }
+    std::cout<<"Text: "<<std::endl<<txt<<std::endl;
+    std::cout<<"Zakodowany txt: "<<std::endl;
+    string str="";
+    for(char a : txt){
+        str+=huffman[a];
+       // str+=" "; //sluzy sprawdzeniu
+    }
+    std::cout<<str<<std::endl;
+
+}
+/*
+std::string treeToTxt(Node* root, std::string fileName){ //kluczowe jesli chcemy moc zamknac plik exe i potem odczytac txt
+    int l=1;
+    ofstream(fileName);
+    std::string out="";
+
+
+}
+*/
+
+int main()
+{
+    string str="Ala ma kota";
+    DrzewoHuffmana(str);
+    //dekoding
+    std::cout<<"Dekode: "<<decode(str, root)<<std::endl;
+}
