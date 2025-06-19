@@ -4,11 +4,11 @@ Pattern_search::Pattern_search(std::string data,std::string pattern){
     //setlocale(LC_ALL, "pl_PL");
 
     this->data = data;
-    std::transform(this->data.begin(),this->data.end(),this->data.begin(),::toupper);
+    std::transform(this->data.begin(),this->data.end(),this->data.begin(),::tolower);
     this->pattern = pattern;
-    std::transform(this->pattern.begin(),this->pattern.end(),this->pattern.begin(),::toupper);
+    std::transform(this->pattern.begin(),this->pattern.end(),this->pattern.begin(),::tolower);
 
-    std::cout << data << std::endl;
+    //std::cout << data << std::endl;
 }
 
 // Konstruktor z zapytaniem, czy data to nazwa pliku
@@ -19,15 +19,19 @@ Pattern_search::Pattern_search(std::string data,std::string pattern,bool isFile)
     if(isFile==true){
         std::fstream data_file(data);
         if(data_file.is_open()){
-            while(data_file.good()){
+            std::string linia;
+            /*while(data_file.good()){
                 getline(data_file,this->data);
-            }
+            }*/
+           while(std::getline(data_file,linia)){
+                this->data += linia + "\n";
+           }
         }
         data_file.close();
     }
     //std::cout << this->data << std::endl;
-    std::transform(this->data.begin(),this->data.end(),this->data.begin(),::toupper);
-    std::transform(this->pattern.begin(),this->pattern.end(),this->pattern.begin(),::toupper);
+    std::transform(this->data.begin(),this->data.end(),this->data.begin(),::tolower);
+    std::transform(this->pattern.begin(),this->pattern.end(),this->pattern.begin(),::tolower);
 }
 
 int Pattern_search::Boyer_Moor(){
@@ -201,4 +205,41 @@ void Pattern_search::print_shift_locations(){
         std::cout << x << " ";
     }
         std::cout << std::endl;
+}
+
+std::string Pattern_search::print_data(){
+    std::cout << data << std::endl;
+
+    return data;
+}
+
+void Pattern_search::print_highlighted(){
+    const std::string RED   = "\033[31m"; //Kolor highlightu
+    const std::string RESET = "\033[0m"; //Resetuj kolor
+
+    //std::cout << RED << "TEKST CZERWONY";
+    //std::cout << RESET << std::endl;
+
+    int n = data.size();
+    std::vector<bool> color(n,false);
+
+    // Zapisuje gdzie ma byc zaznaczony tekst
+    for(auto k:shift_locations){
+        for(int i=k; i<k+pattern.size() && i<n;++i){
+            color[i]=true;
+        }
+    }
+
+    //Drukuje znak po znaku
+    //Gdy pojawi sie wzorzec, drukuje go w kolorze
+    for(int i=0;i<n;++i){
+        if(color[i] && (i==0 || !color[i-1])){
+            std::cout << RED;
+        }else if(!color[i] && i>0 && color[i-1]){
+            std::cout << RESET;
+        }
+        std::cout << data[i];
+    }
+
+    std::cout << RESET << std::endl;
 }

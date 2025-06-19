@@ -25,6 +25,8 @@ class Pattern_search{
         std::vector<int> Generate_PI(std::string P);
         std::vector<int> get_shift_locations();
         void print_shift_locations();
+        std::string print_data();
+        void print_highlighted();
 };
 
 
