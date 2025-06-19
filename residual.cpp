@@ -88,55 +88,55 @@ bool ResidualNetwork::bellmanFord(int source, int sink, std::vector<Edge*>& pare
     parent.assign(vertices, nullptr);
     dist[source] = 0;
 
-    for (int i = 0; i < vertices - 1; i++) {
-        bool updated = false;
+    for (int i = 0; i < vertices - 1; i++) { // przechodzimy przez liczba wierzcholkow - 1 chyba że brak kosztu
+        bool updated = false; // brak aktualizacji kosztu
         for (int u = 0; u < vertices; u++) {
             if (dist[u] == std::numeric_limits<int>::max()) continue;
 
-            for (Edge* e : adjList[u]) {
-                if (e->capacity > e->flow && dist[e->to] > dist[u] + e->repairCost) {
-                    dist[e->to] = dist[u] + e->repairCost;
-                    parent[e->to] = e;
-                    updated = true;
+            for (Edge* e : adjList[u]) { // adjList[0] - wszysteki drogi wychodzące od pierwszego wierzchołka
+                if (e->capacity > e->flow && dist[e->to] > dist[u] + e->repairCost) {//jeżeli przepustowość > przepływ i koszto do danego wierzchołka > dystans do startowego + koszt naprawy drogi
+                    dist[e->to] = dist[u] + e->repairCost; // zmieniamy koszt dotarcia do wierzchołka
+                    parent[e->to] = e; // ustawienie rodzica
+                    updated = true; // zaktualizowano więc true
                 }
             }
         }
-        if (!updated) break;
+        if (!updated) break; // jeżeli brak aktualizacji przerwij pętle
     }
 
-    return parent[sink] != nullptr;
+    return parent[sink] != nullptr; // jeśli znaleziono pętle zwróć true
 }
 
 std::pair<int, int> ResidualNetwork::minCostMaxFlow(int source, int sink) {
-    int maxFlow = 0;
-    int minrepairCost = 0;
-    std::vector<Edge*> parent(vertices);
+    int maxFlow = 0; // makszymalny przepływ na zerto
+    int minrepairCost = 0; // minimalny koszt na zero
+    std::vector<Edge*> parent(vertices); // poprzednicy
 
-    while (bellmanFord(source, sink, parent)) {
+    while (bellmanFord(source, sink, parent)) { // idziemy od ujścia do źródła / przechodzenie wstecz
         int pathFlow = std::numeric_limits<int>::max();
 
         for (int v = sink; v != source; v = parent[v]->from) {
-            pathFlow = std::min(pathFlow, parent[v]->capacity - parent[v]->flow);
+            pathFlow = std::min(pathFlow, parent[v]->capacity - parent[v]->flow); // to samo co w maxFlow bierzemy najmniejszą wartość ze ścieżki
         }
 
-        for (int v = sink; v != source; v = parent[v]->from) {
+        for (int v = sink; v != source; v = parent[v]->from) { // aktualizacja przepływu wzdłuż ścieżki powiększającej, odejmowanie athFlow
             Edge* e = parent[v];
             e->flow += pathFlow;
             e->reverse->flow -= pathFlow;
-            minrepairCost += pathFlow * e->repairCost;
+            minrepairCost += e->repairCost; // dodanie kosztu naprawy drogi
         }
 
         maxFlow += pathFlow;
     }
 
-    return {maxFlow, static_cast<int>(minrepairCost)};
+    return {maxFlow, static_cast<int>(minrepairCost)}; // zwroć odpowiedzo
 }
 
 //do cwiartek
 
 void ResidualNetwork::setCoordinates(int vertex, Point p) {
     coordinates[vertex] = {p.x, p.y};
-}
+} // ustawienie koordynatów punktu
 
 //Wypisuje współrzędne wszystkich wierzchołków do stdout.
 void ResidualNetwork::printCoordinates(){
