@@ -2,7 +2,7 @@
 #include <iostream>
 #include <algorithm>
 #include <limits>
-#include <queue>  // dodane, bo brakowało
+#include <queue> 
 #include "prz_wiel.h"
 
 ResidualNetwork::ResidualNetwork(int vertices) : vertices(vertices) {
