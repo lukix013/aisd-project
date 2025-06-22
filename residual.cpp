@@ -196,6 +196,78 @@ std::pair<int, int> ResidualNetwork::minCostMaxFlow(int source, int sink) {
     return {maxFlow, static_cast<int>(minrepairCost)}; // zwroć odpowiedzo
 }
 
+std::vector<Edge> ResidualNetwork::saveEdgesWithFlow() {
+    std::vector<Edge> edgesWithFlow;
+    for (int u = 0; u < vertices; u++) {
+        for (const Edge* edge : adjList[u]) {
+            if (edge->flow > 0) {
+                edgesWithFlow.push_back({
+                    edge->from,
+                    edge->to,
+                    edge->capacity,
+                    edge->repairCost,
+                    edge->flow
+                    });
+            }
+        }
+    }
+    return edgesWithFlow;
+}
+int ResidualNetwork::compareAndSumUniqueEdgeCosts(
+    const std::vector<Edge>& flowSet1,
+    const std::vector<Edge>& flowSet2) {
+
+    std::map<std::pair<int, int>, int> set1;
+    std::map<std::pair<int, int>, int> set2;
+    //kopujemy krawędzie z przepływem do mapy, gdzie kluczem jest para {from, to}, a wartością jest koszt naprawy
+    for (const auto& ed : flowSet1) {
+        set1[{ed.from, ed.to}] = ed.repairCost;
+    }
+
+    for (const auto& ed : flowSet2) {
+        set2[{ed.from, ed.to}] = ed.repairCost;
+    }
+
+    int totalUniqueCost = 0;
+    // Przejscie przez krawędzie w flowSet1 i sprawdzenie, czy są unikalne
+    for (const auto& entry : set1) {
+        const std::pair<int, int>& edgeKey = entry.first;
+        int cost = entry.second;
+        if (set2.find(edgeKey) == set2.end()) {
+            totalUniqueCost += cost;
+        }
+    }
+
+    // Przejscie przez krawędzie w flowSet2 i sprawdzenie, czy są unikalne
+    for (const auto& entry : set2) {
+        const std::pair<int, int>& edgeKey = entry.first;
+        int cost = entry.second;
+        if (set1.find(edgeKey) == set1.end()) {
+            totalUniqueCost += cost;
+        }
+    }
+
+    return totalUniqueCost;
+}
+
+void ResidualNetwork::printPath() {
+    std::vector<Edge> path=this->saveEdgesWithFlow();
+    for (auto& ed : path) {
+        std::cout << "Skad: " << ed.from << " Dokad: " << ed.to << " Flow: " << ed.flow << " Koszt: " << ed.repairCost << std::endl;
+    }
+}
+void ResidualNetwork::printPathToFile(std::ofstream& output){
+    if (!output.is_open()) {
+        std::cerr << "Error, file is not open" << std::endl;
+        return; // Or throw an exception
+    }
+    std::vector<Edge> path = this->saveEdgesWithFlow();
+    for (const auto& ed : path) {
+        output << "Skad: " << ed.from << " Dokad: " << ed.to << " Flow: " << ed.flow << " Koszt tej drogi: " << ed.repairCost << std::endl;
+    }
+}
+
+
 //do cwiartek
 
 void ResidualNetwork::setCoordinates(int vertex, Point p) {
