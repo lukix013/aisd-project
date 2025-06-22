@@ -6,6 +6,8 @@
 #include "prz_wiel.h"
 
 int main() {
+    std::vector<Edge> set1;
+    std::vector<Edge> set2;
 
     std::ifstream fin("input.txt");
     if(!fin){
@@ -92,7 +94,8 @@ int main() {
     auto [flow1, cost1] = net1.minCostMaxFlow(source1, sink1);
 
     output << "Wasza Dostojność Samwise, \nPo długim i skrupulatnym badaniu pól, browaróœ, karczm oraz dróg Shire, zespół techniczny wspomagany komputerem przygotował plan zapewnienia dostatku piwa w każdej karczmie. \nEtap pierwszy\nPola iprawne zostały zbadane przez kartografóœ i botaników. Okazało się, że w zależności od ćwiartki kraju, w której leży dane pole, plony różnią się znacząco.\nNastępnie uruchomiliśmy transporty jęczmienia do browaróœ. Drogi były trudne, część z nich wymagała kosztownych napraw, ale nasze wozy zdołały dotrzeć do celu.\nUdało się przetransportować: " << flow1 << ", łączny koszt naprawy dróg wyniósł:" << cost1 << "\n";
-
+    output << "\nA jęczmień pojechał tymi drogami:\n";
+    net1.printPathToFile(output);
     output << "W poszczególnych browarach znalazło się: \n";
 
     std::vector<int> jeczmienBrowary(browCount, 0); //Ilość jęczmienia w poszczególnych browarach.
@@ -145,6 +148,11 @@ int main() {
 
     // Zapis wyników drugiego etapu do pliku
     output << flow2 << ", koszt naprawy dróg wyniósł: " << cost2 << "\n";
+    output << "\nA browar pojechał tymi drogami:\n";
+    net1.printPathToFile(output);
+    set1 = net1.saveEdgesWithFlow();
+    set2 = net2.saveEdgesWithFlow();
+    output << "Łączny koszt naprawy dróg wyniósł: " << ResidualNetwork::compareAndSumUniqueEdgeCosts(set1, set2) << std::endl;
     output << "Burmistrzu Samwise, dzięki Waszej mądrości i gościnności każdy hobbit w Shire będzie mógł wznieść świeżego piwa.\nZ szacunkiem i kuflem zminego piwa,\nTechniczny Zespół Hobbitonu.";
 
     fin.close();
