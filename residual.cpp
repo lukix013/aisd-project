@@ -177,6 +177,7 @@ std::pair<int, int> ResidualNetwork::minCostMaxFlow(int source, int sink) {
     int maxFlow = 0; // makszymalny przepływ na zerto
     int minrepairCost = 0; // minimalny koszt na zero
     std::vector<Edge*> parent(vertices); // poprzednicy
+    std::vector<Edge*> costsPaidForEdges;
 
     cancelNegativeCycles();
 
@@ -194,7 +195,10 @@ std::pair<int, int> ResidualNetwork::minCostMaxFlow(int source, int sink) {
             Edge* e = parent[v];
             e->flow += pathFlow;
             e->reverse->flow -= pathFlow;
-            minrepairCost += e->repairCost; // dodanie kosztu naprawy drogi
+            if (e->repairCost > 0 && (std::find(costsPaidForEdges.begin(), costsPaidForEdges.end(), e))!= costsPaidForEdges.end()) {
+                minrepairCost += e->repairCost;
+                costsPaidForEdges.push_back(e);
+            }     // dodanie kosztu naprawy drogi
         }
 
         maxFlow += pathFlow;
