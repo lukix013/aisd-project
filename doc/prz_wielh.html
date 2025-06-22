@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>prz_wiel.h – Dokumentacja</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+</head>
+<body>
+  <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="index.html">← Powrót do strony głównej</a>
+      <span class="navbar-text ms-auto">Plik: <code>prz_wiel.h</code></span>
+    </div>
+  </nav>
+
+  <div class="container mt-4">
+    <h1 class="mb-4">📄 Plik nagłówkowy: <code>prz_wiel.h</code></h1>
+    <p>Plik <code>prz_wiel.h</code> zawiera deklaracje funkcji i definicję struktury <code>Point</code>, służące do operacji geometrycznych związanych z przynależnością punktu do wielokąta.</p>
+
+    <h3>Definicje</h3>
+    <ul>
+      <li><code>struct Point</code> – struktura reprezentująca punkt na płaszczyźnie kartezjańskiej, z polami <code>x</code> i <code>y</code> typu <code>int</code>.</li>
+    </ul>
+
+    <h3>Funkcje</h3>
+    <ul>
+      <li><strong><code>bool</code> czy_wspoliniowe(<code>Point</code> a, <code>Point</code> b, <code>Point</code> c </strong>)</code> – sprawdza, czy trzy punkty leżą na jednej prostej.</li>
+      <li><strong><code>bool </code> do_krawedzi(<code>Point</code> p, <code>Point</code> a, <code>Point</code> b </strong>)</code> – sprawdza, czy punkt <code>p</code> leży na odcinku wyznaczonym przez punkty <code>a</code> i <code>b</code>.</li>
+      <li><strong><code>bool</code> przecina_polprosta (<code>Point</code> p, <code>Point</code> a, <code>Point</code> b </strong>)</code> – określa, czy półprosta pozioma wychodząca z punktu <code>p</code> przecina odcinek <code>[a, b]</code>.</li>
+      <li><strong><code>bool </code> punkt_w_wielokacie </code>(<code>Point</code> p,  <code>const std::vector<Point></code> &wielokat </strong>) – zwraca <code>true</code>, jeśli punkt <code>p</code> znajduje się wewnątrz lub na krawędzi wielokąta reprezentowanego przez wektor punktów <code>wielokat</code>.</li>
+    </ul>
+
+    <h3>Uwagi</h3>
+    <ul>
+      <li>Plik jest zabezpieczony przed wielokrotnym dołączaniem poprzez dyrektywy <code>#ifndef</code>, <code>#define</code> i <code>#endif</code>.</li>
+      <li>Wszystkie funkcje operują na punktach całkowitoliczbowych.</li>
+    </ul>
+  </div>
+
+  <footer class="bg-light text-center py-3 mt-5">
+    <small>&copy; 2025 Projekt Na AiSD II. Wszelkie prawa zastrzeżone.</small>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

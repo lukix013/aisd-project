@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Dokumentacja pattern_search.h</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <style>
+    code { background-color: #f8f9fa; padding: 2px 4px; border-radius: 3px; }
+  </style>
+</head>
+<body>
+  <nav class="navbar navbar-expand-lg navbar-dark bg-primary mb-4">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="patternmenu.html">← Powrót do strony głównej</a>
+      <span class="navbar-text ms-auto">Plik: <code>pattern_search.h</code></span>
+    </div>
+  </nav>
+
+  <div class="container">
+    <h1>Klasa <code>Pattern_search</code></h1>
+
+    <h3>Opis klasy:</h3>
+    <p>Klasa służy do wyszukiwania wzorca tekstowego w danych tekstowych lub pliku, implementując algorytmy Boyera-Moore'a oraz Knutha-Morrisa-Pratta.</p>
+    <p>Przechowuje dane tekstowe oraz wzorzec, przygotowuje je do analizy (np. konwersja na małe litery) oraz zapisuje pozycje znalezionych wzorców.</p>
+
+    <h3>Pola prywatne:</h3>
+    <ul>
+      <li><code>std::string pattern</code> — wzorzec do wyszukiwania (zwykle małe litery).</li>
+      <li><code>std::string data</code> — tekst poddany przeszukiwaniu (małe litery).</li>
+      <li><code>std::string data_copy</code> — kopia oryginalnego tekstu z zachowaniem wielkości liter i formatowania.</li>
+      <li><code>std::set&lt;char&gt; AL</code> — zbiór znaków występujących w tekście (alfabet).</li>
+      <li><code>std::vector&lt;int&gt; shift_locations</code> — indeksy (pozycje) znalezionych wzorców w tekście.</li>
+    </ul>
+
+    <h3>Konstruktory:</h3>
+    <dl>
+      <dt><code>Pattern_search(std::string data, std::string pattern)</code></dt>
+      <dd>Tworzy obiekt, przyjmując tekst i wzorzec. Konwertuje oba do małych liter.</dd>
+
+      <dt><code>Pattern_search(std::string data, std::string pattern, bool isFile)</code></dt>
+      <dd>Jeśli <code>isFile</code> jest prawdziwe, odczytuje zawartość pliku o nazwie <code>data</code> jako tekst, następnie konwertuje go oraz wzorzec na małe litery.</dd>
+    </dl>
+
+    <h3>Metody publiczne:</h3>
+    <ul>
+      <li><code>std::map&lt;char,int&gt; Generate_LAST(std::set&lt;char&gt; al, std::string P)</code> — generuje tablicę <code>LAST</code> wykorzystywaną w algorytmie Boyera-Moore'a.</li>
+      <li><code>int Boyer_Moor()</code> — wykonuje algorytm Boyera-Moore'a, zwraca liczbę znalezionych wzorców i zapisuje ich pozycje w <code>shift_locations</code>.</li>
+      <li><code>std::vector&lt;int&gt; Generate_BMNext(std::string P)</code> — generuje tablicę <code>BMNext</code> potrzebną do algorytmu Boyera-Moore'a.</li>
+      <li><code>int KMP()</code> — wykonuje algorytm Knutha-Morrisa-Pratta, zwraca liczbę znalezionych wzorców i zapisuje pozycje w <code>shift_locations</code>.</li>
+      <li><code>std::vector&lt;int&gt; Generate_PI(std::string P)</code> — generuje tablicę <code>PI</code> (prefiksową) dla algorytmu KMP.</li>
+      <li><code>std::vector&lt;int&gt; get_shift_locations()</code> — zwraca wektor pozycji znalezionych wzorców.</li>
+      <li><code>void print_shift_locations()</code> — wypisuje na konsolę indeksy, w których znaleziono wzorce.</li>
+      <li><code>std::string print_data()</code> — zwraca oryginalny tekst (z zachowaniem wielkości liter i formatowania).</li>
+      <li><code>void print_highlighted()</code> — wypisuje tekst na konsolę z podświetleniem znalezionych wzorców (kolor czerwony, kody ANSI).</li>
+    </ul>
+
+    <h3>Uwagi dotyczące implementacji:</h3>
+    <ul>
+      <li>Konstruktor z parametrem <code>isFile</code> odczytuje cały plik tekstowy do zmiennej <code>data</code>.</li>
+      <li>Algorytmy wyszukiwania wykorzystują klasyczne podejścia z tablicami pomocniczymi (LAST, BMNext, PI) w celu optymalizacji.</li>
+      <li>Metody zwracają liczbę znalezionych wystąpień wzorca i zapisują ich pozycje, co pozwala na późniejsze przetwarzanie lub wizualizację wyników.</li>
+      <li>Podświetlanie tekstu w metodzie <code>print_highlighted()</code> jest realizowane przez sekwencje escape ANSI i wymaga terminala obsługującego kolory.</li>
+    </ul>
+  </div>
+
+  <footer class="bg-light text-center py-3 mt-5">
+    <small>&copy; 2025 Projekt AI i Algorytmy. Wszystkie prawa zastrzeżone.</small>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

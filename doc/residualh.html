@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>residual.h – Dokumentacja</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+</head>
+<body>
+  <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="index.html">← Powrót do strony głównej</a>
+      <span class="navbar-text ms-auto">Plik: <code>residual.h</code></span>
+    </div>
+  </nav>
+
+  <div class="container mt-4">
+    <h1 class="mb-4">📄 Plik: <code>residual.h</code></h1>
+    <p>Definicje struktur i klasy do obsługi sieci residualnej wykorzystywanej do algorytmów przepływowych (<code>max flow</code> i <code>min cost flow</code>).</p>
+
+    <h3>Struktura <code>Edge</code></h3>
+    <ul>
+      <li><code>int from</code> – wierzchołek początkowy krawędzi.</li>
+      <li><code>int to</code> – wierzchołek końcowy krawędzi.</li>
+      <li><code>int capacity</code> – przepustowość krawędzi.</li>
+      <li><code>int flow</code> – aktualny przepływ na krawędzi.</li>
+      <li><code>int repairCost</code> – koszt naprawy, używany jako koszt przepływu.</li>
+      <li><code>Edge* reverse</code> – wskaźnik do krawędzi odwrotnej (rewersyjnej).</li>
+      <li><code>Edge(int from, int to, int capacity, int repairCost = 0)</code> – konstruktor.</li>
+    </ul>
+
+    <h3>Klasa <code>ResidualNetwork</code></h3>
+    <p>Reprezentuje sieć residualną dla grafu skierowanego z funkcjami dodawania krawędzi, oraz obliczania maksymalnego przepływu i minimalnego kosztu maksymalnego przepływu.</p>
+
+    <h4>Publiczne metody i pola:</h4>
+    <ul>
+      <li><code>ResidualNetwork(int vertices)</code> – konstruktor, inicjalizuje sieć z podaną liczbą wierzchołków.</li>
+      <li><code>void addEdge(int from, int to, int capacity)</code> – dodaje krawędź bez kosztu.</li>
+      <li><code>void addEdge(int from, int to, int capacity, int repairCost)</code> – dodaje krawędź z określonym kosztem.</li>
+      <li><code>int maxFlow(int source, int sink)</code> – oblicza maksymalny przepływ w sieci.</li>
+      <li><code>std::pair&lt;int, int&gt; minCostMaxFlow(int source, int sink)</code> – zwraca parę (maksymalny przepływ, minimalny koszt).</li>
+      <li><code>void setCoordinates(int vertex, Point p)</code> – ustawia współrzędne punktu dla danego wierzchołka.</li>
+      <li><code>void printCoordinates()</code> – wypisuje współrzędne wszystkich wierzchołków.</li>
+      <li><code>std::vector&lt;std::vector&lt;Edge*&gt;&gt; adjList</code> – lista sąsiedztwa zawierająca wskaźniki do krawędzi.</li>
+      <li><code>std::unordered_map&lt;int, Point&gt; coordinates</code> – mapa wierzchołków do ich współrzędnych.</li>
+    </ul>
+
+    <h4>Prywatne metody i pola:</h4>
+    <ul>
+      <li><code>int vertices</code> – liczba wierzchołków w grafie.</li>
+      <li><code>bool bfs(int source, int sink, std::vector&lt;Edge*&gt;&amp; parent)</code> – pomocnicza metoda wyszukująca ścieżkę powiększającą dla <code>maxFlow</code>.</li>
+      <li><code>bool bellmanFord(int source, int sink, std::vector&lt;Edge*&gt;&amp; parent)</code> – wyszukuje najtańsze ścieżki (w kontekście kosztów).</li>
+      <li><code>bool findNegativeCycle(std::vector&lt;Edge*&gt; &amp;cycle)</code> – wykrywa ujemne cykle w sieci.</li>
+      <li><code>void cancelNegativeCycles()</code> – anuluje ujemne cykle, zwiększając przepływ.</li>
+    </ul>
+
+    <h3>Uwagi techniczne</h3>
+    <ul>
+      <li>Konstruktor <code>Edge</code> umożliwia domyślne ustawienie <code>repairCost</code> na 0.</li>
+      <li>Lista <code>adjList</code> przechowuje dynamiczne wskaźniki na obiekty <code>Edge</code>.</li>
+      <li>Algorytmy zakładają poprawność danych.</li>
+    </ul>
+  </div>
+
+  <footer class="bg-light text-center py-3 mt-5">
+    <small>&copy; 2025 Projekt Na AiSD II. Wszelkie prawa zastrzeżone.</small>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

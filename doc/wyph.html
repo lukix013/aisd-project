@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Dokumentacja wyp.h</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+</head>
+<body>
+  <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="index.html">← Powrót do strony głównej</a>
+      <span class="navbar-text ms-auto">Plik nagłówkowy: <code>wyp.h</code></span>
+    </div>
+  </nav>
+
+  <div class="container mt-4">
+    <h1>Plik nagłówkowy <code>wyp.h</code></h1>
+
+    <h3>Zmienne zewnętrzne:</h3>
+    <ul>
+      <li><code>extern Point p0;</code> – punkt odniesienia wykorzystywany w funkcjach do wyznaczania otoczki wypukłej.</li>
+    </ul>
+
+    <h3>Funkcje:</h3>
+    <dl>
+      <dt><code>int det(Point p1, Point p2, Point p3);</code></dt>
+      <dd>Oblicza orientację trzech punktów (skret lewo/prawo lub współliniowość).</dd>
+
+      <dt><code>int distanceSq(Point p1, Point p2);</code></dt>
+      <dd>Oblicza kwadrat odległości między dwoma punktami.</dd>
+
+      <dt><code>bool comparePoints(Point p1, Point p2);</code></dt>
+      <dd>Funkcja porównująca punkty względem kąta względem <code>p0</code>, wykorzystywana do sortowania.</dd>
+
+      <dt><code>int findFirst(const std::vector&lt;Point&gt;&amp; points);</code></dt>
+      <dd>Znajduje indeks punktu o najmniejszej współrzędnej <code>y</code> (a przy remisie najmniejszej <code>x</code>), który jest punktem startowym.</dd>
+
+      <dt><code>std::vector&lt;Point&gt; convexHull(std::vector&lt;Point&gt; points);</code></dt>
+      <dd>Wyznacza otoczkę wypukłą ze zbioru punktów metodą Graham Scan.</dd>
+    </dl>
+  </div>
+
+  <footer class="bg-light text-center py-3 mt-5">
+    <small>&copy; 2025 Projekt Na AiSD II. Wszelkie prawa zastrzeżone.</small>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
