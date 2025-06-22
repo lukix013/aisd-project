@@ -41,5 +41,4 @@ private:
     void destroyTree(Node* node);
     void generateCodes(Node* node, const std::string& prefix);
 };
-//zmiany troche bazowane na https://github.com/cynricfu/huffman-coding (MIT licence), dobre zastepstwo dla tego co tu jest
 #endif
