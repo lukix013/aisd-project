@@ -1,0 +1,16 @@
+Wasza Dostojność Samwise, 
+Po długim i skrupulatnym badaniu pól, browaróœ, karczm oraz dróg Shire, zespół techniczny wspomagany komputerem przygotował plan zapewnienia dostatku piwa w każdej karczmie. 
+Etap pierwszy
+Pola iprawne zostały zbadane przez kartografóœ i botaników. Okazało się, że w zależności od ćwiartki kraju, w której leży dane pole, plony różnią się znacząco.
+Następnie uruchomiliśmy transporty jęczmienia do browaróœ. Drogi były trudne, część z nich wymagała kosztownych napraw, ale nasze wozy zdołały dotrzeć do celu.
+Udało się przetransportować: 40, łączny koszt naprawy dróg wyniósł:173
+W poszczególnych browarach znalazło się: 
+Jeczmien w browarze 1: 3
+Jeczmien w browarze 2: 17
+Jeczmien w browarze 3: 20
+Etap drugi
+Gdy tylko browary rozpoczęły warzenie, zapach świeżego piwa zaczął unosić się w powietrzu. Karczmarze z niecierpliwością wyglądali dostaw. Z browarów piwo ruszyło w emocjonującą podróż do naszych wspaniałych karczm.
+Transport piwa poszedł sprawnie, udało się dostarczyć: 18, koszt naprawy dróg wyniósł: 100
+Burmistrzu Samwise, dzięki Waszej mądrości i gościnności każdy hobbit w Shire będzie mógł wznieść świeżego piwa.
+Z szacunkiem i kuflem zminego piwa,
+Techniczny Zespół Hobbitonu.
