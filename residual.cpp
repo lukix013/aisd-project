@@ -270,7 +270,7 @@ void ResidualNetwork::printPathToFile(std::ofstream& output){
     }
     std::vector<Edge> path = this->saveEdgesWithFlow();
     for (const auto& ed : path) {
-        output << "Skad: " << ed.from << " Dokad: " << ed.to << " Flow: " << ed.flow << " Koszt tej drogi: " << ed.repairCost << std::endl;
+        output << "Skąd: " << ed.from << " Dokąd: " << ed.to << " Flow: " << ed.flow << " Koszt tego odcinka: " << ed.repairCost << std::endl;
     }
 }
 
