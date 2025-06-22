@@ -8,6 +8,7 @@
 #include <string>
 #include <utility>
 #include <vector>
+#include <cstdint>
 
 //
 //dosc wazne jest to ze klasa zaklada pewien format kodowania, wiec jesli plik nie jest zakodowany w tym formacie to moze byc problem z odkodowaniem
