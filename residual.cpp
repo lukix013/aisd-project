@@ -8,6 +8,13 @@
 ResidualNetwork::ResidualNetwork(int vertices) : vertices(vertices) {
     adjList.resize(vertices);
 }
+ResidualNetwork::~ResidualNetwork() {
+    for (int i = 0; i < this->vertices; i++) {
+        for (Edge* kra : adjList[i]) {
+            delete kra;
+        }
+    }
+}
 
 void ResidualNetwork::addEdge(int from, int to, int capacity) {
     Edge* forward = new Edge(from, to, capacity);
