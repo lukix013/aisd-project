@@ -132,7 +132,7 @@ std::pair<int, int> ResidualNetwork::minCostMaxFlow(int source, int sink) {
             Edge* e = parent[v];
             e->flow += pathFlow;
             e->reverse->flow -= pathFlow;
-            minrepairCost += pathFlow * e->repairCost;
+            minrepairCost += e->repairCost;
         }
 
         maxFlow += pathFlow;
@@ -200,6 +200,16 @@ void ResidualNetwork::printPath() {
     std::vector<Edge> path=this->saveEdgesWithFlow();
     for (auto& ed : path) {
         std::cout << "Skad: " << ed.from << " Dokad: " << ed.to << " Flow: " << ed.flow << " Koszt: " << ed.repairCost << std::endl;
+    }
+}
+void ResidualNetwork::printPathToFile(std::ofstream& output){
+    if (!output.is_open()) {
+        std::cerr << "Error, file is not open" << std::endl;
+        return; // Or throw an exception
+    }
+    std::vector<Edge> path = this->saveEdgesWithFlow();
+    for (const auto& ed : path) {
+        output << "Skad: " << ed.from << " Dokad: " << ed.to << " Flow: " << ed.flow << " Koszt: " << ed.repairCost << std::endl;
     }
 }
 

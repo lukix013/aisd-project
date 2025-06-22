@@ -7,6 +7,7 @@
 #include <limits>
 #include <queue>
 #include <map>
+#include <fstream>
 
 #include "prz_wiel.h"
 
@@ -53,6 +54,7 @@ public:
     void printCoordinates();
 
     void printPath();
+    void printPathToFile(std::ofstream& output);
 
     //wierzcholek -> int x, int y
     std::unordered_map<int, Point> coordinates;
