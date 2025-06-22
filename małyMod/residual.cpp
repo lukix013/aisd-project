@@ -199,7 +199,7 @@ int ResidualNetwork::compareAndSumUniqueEdgeCosts(
 void ResidualNetwork::printPath() {
     std::vector<Edge> path=this->saveEdgesWithFlow();
     for (auto& ed : path) {
-        std::cout << "Skad: " << ed.from << " Dokad: " << ed.to << " Koszt: " << ed.repairCost << std::endl;
+        std::cout << "Skad: " << ed.from << " Dokad: " << ed.to << " Flow: " << ed.flow << " Koszt: " << ed.repairCost << std::endl;
     }
 }
 
