@@ -1,7 +1,7 @@
 #include "pattern_search.h"
 
+//Konstruktor, w którym podajemy tekst(data) oraz wzorzec(pattern)
 Pattern_search::Pattern_search(std::string data,std::string pattern){
-    //setlocale(LC_ALL, "pl_PL");
 
     this->data = data;
     data_copy = this->data;
@@ -12,18 +12,18 @@ Pattern_search::Pattern_search(std::string data,std::string pattern){
     //std::cout << data << std::endl;
 }
 
-// Konstruktor z zapytaniem, czy data to nazwa pliku
+//Konstruktor, w którym podajemy tekst,wzorzec oraz True lub False, gdy data to ścieżka do pliku
 Pattern_search::Pattern_search(std::string data,std::string pattern,bool isFile){
-    //std::locale::global(std::locale("pl_PL.UTF-8")); 
-    this->pattern = pattern;
 
+    this->pattern = pattern;
+    //Jeśli plik nie istnieje, kończy działanie aplikacji
     std::fstream file(data);
     if(!file.good()){
         std::cout << "Podany plik nie istnieje!" << std::endl;
         file.close();
         exit(0);
     }
-
+    //Zapisuje tekst do zmiennej data
     if(isFile==true){
         std::fstream data_file(data);
         if(data_file.is_open()){
@@ -43,6 +43,7 @@ Pattern_search::Pattern_search(std::string data,std::string pattern,bool isFile)
     std::transform(this->pattern.begin(),this->pattern.end(),this->pattern.begin(),::tolower);
 }
 
+//Funkcja, która wykonuję algorytm Boyera Moore'a. Zwraca ona ile wzorców znaleźliśmy oraz dodaje do tablicy shift_locations przesunięcia wzorca
 int Pattern_search::Boyer_Moor(){
     shift_locations.clear();
     int wynik=0;
@@ -58,14 +59,14 @@ int Pattern_search::Boyer_Moor(){
     }
     std::cout << std::endl;*/
 
-    std::map<char,int> LAST = Generate_LAST(AL,pattern); 
+    std::map<char,int> LAST = Generate_LAST(AL,pattern); //Generuje tablicę LAST
 
     // for(auto k:LAST){
     //     std::cout << k.first << " " << k.second << " ";
     // }
     // std::cout << std::endl;
 
-    std::vector<int> BMNext = Generate_BMNext(pattern);
+    std::vector<int> BMNext = Generate_BMNext(pattern); //Generuje tablicę BMNext
 
     // for(auto k:BMNext){
     //     std::cout << k << " ";
@@ -92,6 +93,7 @@ int Pattern_search::Boyer_Moor(){
             //Potencjalnie zapisac w tablicy gdzie te przesuniecia wystepuja?
             shift_locations.push_back(i);
             i = i + BMNext[0];
+            wynik++;
         }
     }
     if(pp==0){
@@ -101,6 +103,7 @@ int Pattern_search::Boyer_Moor(){
     return wynik;
 }
 
+//Funkcja ta generuję tablicę LAST do algorytmu Booyera-Moore'a
 std::map<char,int> Pattern_search::Generate_LAST(std::set<char> al,std::string P){
     std::map<char,int> LAST;
 
@@ -115,6 +118,7 @@ std::map<char,int> Pattern_search::Generate_LAST(std::set<char> al,std::string P
     return LAST;
 }
 
+//Funkcja ta generuję tablicę BMNext do algorytmu Booyera-Moore'a
 std::vector<int> Pattern_search::Generate_BMNext(std::string P){
     int m = P.size();
     std::vector<int> BMNext(m+1,0);
@@ -154,6 +158,7 @@ std::vector<int> Pattern_search::Generate_BMNext(std::string P){
     return BMNext;
 }
 
+//Funkcja, która wykonuję algorytm KMP. Zwraca ona ile wzorców znaleźliśmy oraz dodaje do tablicy shift_locations przesunięcia wzorca
 int Pattern_search::KMP(){
     shift_locations.clear();
     std::vector<int> pi = Generate_PI(pattern);
@@ -181,6 +186,7 @@ int Pattern_search::KMP(){
             //std::cout << "Wzorzec wystepuje z przesunieciem " << i-m+1 << std::endl;
             shift_locations.push_back(i-m+1);
             q=pi[q-1];
+            wynik++;
         }
 
     }
@@ -188,6 +194,7 @@ int Pattern_search::KMP(){
     return wynik;
 }
 
+//Funkcja ta generuję tablicę PI do algorytmu KMP.
 std::vector<int> Pattern_search::Generate_PI(std::string P){
     int m = P.size();
     std::vector<int> pi(m,0);
@@ -205,10 +212,12 @@ std::vector<int> Pattern_search::Generate_PI(std::string P){
     return pi;
 }
 
+//Funkcja ta zwraca przesunięcia wzorca w tekście
 std::vector<int> Pattern_search::get_shift_locations(){
     return shift_locations;
 }
 
+//Funkcja ta drukuję w jednej lini przesunięcia wzroca w tekście.
 void Pattern_search::print_shift_locations(){
     for(auto x: shift_locations){
         std::cout << x << " ";
@@ -216,12 +225,14 @@ void Pattern_search::print_shift_locations(){
         std::cout << std::endl;
 }
 
+//Funkcja ta drukuję tekst, w którym szukamy wzorca
 std::string Pattern_search::print_data(){
     std::cout << data << std::endl;
 
     return data;
 }
 
+//Funkcja ta drukuję tekst z wzorcami drukowanymi w kolorze czerwonym
 void Pattern_search::print_highlighted(){
     const std::string RED   = "\033[31m"; //Kolor highlightu
     const std::string RESET = "\033[0m"; //Resetuj kolor
