@@ -149,7 +149,7 @@ int main() {
     // Zapis wyników drugiego etapu do pliku
     output << flow2 << ", koszt naprawy dróg wyniósł: " << cost2 << "\n";
     output << "\nA browar pojechał tymi drogami:\n";
-    net1.printPathToFile(output);
+    net2.printPathToFile(output);
     set1 = net1.saveEdgesWithFlow();
     set2 = net2.saveEdgesWithFlow();
     output << "Łączny koszt naprawy dróg wyniósł: " << ResidualNetwork::compareAndSumUniqueEdgeCosts(set1, set2) << std::endl;
