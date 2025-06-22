@@ -1,6 +1,7 @@
 #include <fstream>
 #include <iostream>
 #include <vector>
+#include <string>
 #include "residual.h"
 #include "wyp.h"
 #include "prz_wiel.h"
@@ -68,7 +69,7 @@ int main() {
         for (int j = 0; j < quartersCount; j++) {
             if (punkt_w_wielokacie(net1.coordinates[i], quarters[j])) {
                 poleProd[i] += quartersValues[j];
-                std::cout << quartersValues[j] << std::endl;
+                //std::cout << quartersValues[j] << std::endl;
             }
         }
     }
@@ -101,7 +102,7 @@ int main() {
     std::vector<int> jeczmienBrowary(browCount, 0); //Ilość jęczmienia w poszczególnych browarach.
 
 
-    std::cout << browCount << std::endl;
+    //std::cout << browCount << std::endl;
 
     int browStartIndex = V1 - browCount - 3;
 
@@ -110,7 +111,7 @@ int main() {
 
         for (Edge* e : net1.adjList[i]) {
             if(e->to == sink1){
-                jeczmienBrowary[i - browStartIndex] = e->flow;
+                jeczmienBrowary[i - browStartIndex-1] = e->flow;
                 output << "Jeczmien w browarze " << (i - browStartIndex) << ": " << e->flow << "\n";
             }
         }

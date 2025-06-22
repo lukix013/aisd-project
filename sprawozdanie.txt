@@ -3,14 +3,49 @@ Po długim i skrupulatnym badaniu pól, browaróœ, karczm oraz dróg Shire, zes
 Etap pierwszy
 Pola iprawne zostały zbadane przez kartografóœ i botaników. Okazało się, że w zależności od ćwiartki kraju, w której leży dane pole, plony różnią się znacząco.
 Następnie uruchomiliśmy transporty jęczmienia do browaróœ. Drogi były trudne, część z nich wymagała kosztownych napraw, ale nasze wozy zdołały dotrzeć do celu.
-Udało się przetransportować: 40, łączny koszt naprawy dróg wyniósł:173
+Udało się przetransportować: 40, łączny koszt naprawy dróg wyniósł:21
+
+A jęczmień pojechał tymi drogami:
+Skąd: 0 Dokąd: 3 Flow: 10 Koszt tego odcinka: 2
+Skąd: 0 Dokąd: 4 Flow: 5 Koszt tego odcinka: 4
+Skąd: 1 Dokąd: 4 Flow: 10 Koszt tego odcinka: 3
+Skąd: 2 Dokąd: 5 Flow: 15 Koszt tego odcinka: 1
+Skąd: 3 Dokąd: 8 Flow: 3 Koszt tego odcinka: 3
+Skąd: 3 Dokąd: 9 Flow: 7 Koszt tego odcinka: 2
+Skąd: 4 Dokąd: 9 Flow: 10 Koszt tego odcinka: 1
+Skąd: 4 Dokąd: 10 Flow: 5 Koszt tego odcinka: 2
+Skąd: 5 Dokąd: 10 Flow: 15 Koszt tego odcinka: 3
+Skąd: 8 Dokąd: 13 Flow: 3 Koszt tego odcinka: 0
+Skąd: 9 Dokąd: 13 Flow: 17 Koszt tego odcinka: 0
+Skąd: 10 Dokąd: 13 Flow: 20 Koszt tego odcinka: 0
+Skąd: 12 Dokąd: 0 Flow: 15 Koszt tego odcinka: 0
+Skąd: 12 Dokąd: 1 Flow: 10 Koszt tego odcinka: 0
+Skąd: 12 Dokąd: 2 Flow: 15 Koszt tego odcinka: 0
 W poszczególnych browarach znalazło się: 
 Jeczmien w browarze 1: 3
 Jeczmien w browarze 2: 17
 Jeczmien w browarze 3: 20
+Jeczmien w browarze 4: 0
 Etap drugi
 Gdy tylko browary rozpoczęły warzenie, zapach świeżego piwa zaczął unosić się w powietrzu. Karczmarze z niecierpliwością wyglądali dostaw. Z browarów piwo ruszyło w emocjonującą podróż do naszych wspaniałych karczm.
-Transport piwa poszedł sprawnie, udało się dostarczyć: 18, koszt naprawy dróg wyniósł: 100
+Transport piwa poszedł sprawnie, udało się dostarczyć: 18, koszt naprawy dróg wyniósł: 16
+
+A browar pojechał tymi drogami:
+Skąd: 8 Dokąd: 14 Flow: 3 Koszt tego odcinka: 2
+Skąd: 9 Dokąd: 14 Flow: 1 Koszt tego odcinka: 2
+Skąd: 9 Dokąd: 16 Flow: 8 Koszt tego odcinka: 1
+Skąd: 10 Dokąd: 17 Flow: 6 Koszt tego odcinka: 2
+Skąd: 14 Dokąd: 16 Flow: 4 Koszt tego odcinka: 1
+Skąd: 16 Dokąd: 18 Flow: 12 Koszt tego odcinka: 2
+Skąd: 17 Dokąd: 18 Flow: 6 Koszt tego odcinka: 3
+Skąd: 18 Dokąd: 19 Flow: 10 Koszt tego odcinka: 1
+Skąd: 18 Dokąd: 20 Flow: 8 Koszt tego odcinka: 2
+Skąd: 19 Dokąd: 22 Flow: 10 Koszt tego odcinka: 0
+Skąd: 20 Dokąd: 22 Flow: 8 Koszt tego odcinka: 0
+Skąd: 21 Dokąd: 8 Flow: 3 Koszt tego odcinka: 0
+Skąd: 21 Dokąd: 9 Flow: 9 Koszt tego odcinka: 0
+Skąd: 21 Dokąd: 10 Flow: 6 Koszt tego odcinka: 0
+Łączny koszt naprawy dróg wyniósł: 37
 Burmistrzu Samwise, dzięki Waszej mądrości i gościnności każdy hobbit w Shire będzie mógł wznieść świeżego piwa.
 Z szacunkiem i kuflem zminego piwa,
 Techniczny Zespół Hobbitonu.

@@ -6,6 +6,10 @@
 #include <vector>
 #include <limits>
 #include <queue>
+#include <string>
+#include <fstream>
+#include <map>
+#include <algorithm>
 
 #include "prz_wiel.h"
 
@@ -20,6 +24,7 @@ struct Edge {
     Edge(int from, int to, int capacity, int repairCost = 0, int flow = 0)
         : from(from), to(to), capacity(capacity), flow(flow), repairCost(repairCost), reverse(nullptr) {
     }
+};
 
 class ResidualNetwork {
 public:
