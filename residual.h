@@ -17,14 +17,14 @@ struct Edge {
     int repairCost;    // koszt naprawy (używany jako koszt przepływu)
     Edge* reverse;     //wskaźnik do krawędzi rewersyjnej w grafie
 
-    Edge(int from, int to, int capacity, int repairCost = 0)
-        : from(from), to(to), capacity(capacity), flow(0), repairCost(repairCost), reverse(nullptr) {}
-};
+    Edge(int from, int to, int capacity, int repairCost = 0, int flow = 0)
+        : from(from), to(to), capacity(capacity), flow(flow), repairCost(repairCost), reverse(nullptr) {
+    }
 
 class ResidualNetwork {
 public:
     ResidualNetwork(int vertices);
-
+    ~ResidualNetwork();
     void addEdge(int from, int to, int capacity);
     void addEdge(int from, int to, int capacity, int repairCost);
     int maxFlow(int source, int sink);
@@ -34,6 +34,13 @@ public:
     void setCoordinates(int vertex, Point p);
 
     void printCoordinates();
+
+    std::vector<Edge> saveEdgesWithFlow(); // Zwraca krawędzie z przepływem w grafie
+    static int compareAndSumUniqueEdgeCosts(
+        const std::vector<Edge>& flowSet1,
+        const std::vector<Edge>& flowSet2);
+    void printPath();
+    void printPathToFile(std::ofstream& output);
 
     std::unordered_map<int, Point> coordinates; //Mapa wierzchołków do ich współrzędnych.
 
