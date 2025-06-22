@@ -195,7 +195,7 @@ std::pair<int, int> ResidualNetwork::minCostMaxFlow(int source, int sink) {
             Edge* e = parent[v];
             e->flow += pathFlow;
             e->reverse->flow -= pathFlow;
-            if (e->repairCost > 0 && (std::find(costsPaidForEdges.begin(), costsPaidForEdges.end(), e))!= costsPaidForEdges.end()) {
+            if (e->repairCost > 0 && (std::find(costsPaidForEdges.begin(), costsPaidForEdges.end(), e))== costsPaidForEdges.end()) {
                 minrepairCost += e->repairCost;
                 costsPaidForEdges.push_back(e);
             }     // dodanie kosztu naprawy drogi
