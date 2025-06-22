@@ -15,17 +15,18 @@ bool do_krawedzi(Point p, Point a, Point b) {
     return false; // jeśli nie, zwraca fałsz
 }
 
-bool przecina_polprosta(Point p, Point a, Point b) { // czy przecina półprostą/ z punktu w prawo
-    if (a.y > b.y) std::swap(a, b); // uporządkowanie punktów a i b względem osi y
+bool przecina_polprosta(Point p, Point a, Point b) {
+    if (a.y > b.y) std::swap(a, b); // upewniamy się, że a.y <= b.y
 
-    if (p.y == a.y || p.y == b.y)  p.y += 1; // gdy półprosta przechodzi przez wierzchołek dodajemi +1 d p.y, przeciecie liczyłoby się raz lub dwa razy w zależności od kierunku sąsiednich krawędzi
+    // Sprawdzenie, czy półprosta y = p.y przecina przedział [a.y, b.y)
+    if (p.y <= a.y || p.y > b.y) return false;
 
-    if (p.y < a.y || p.y > b.y) return false;
+    // Ustal, po której stronie względem p.x znajduje się przecięcie
+    long long det = 1LL * (b.x - a.x) * (p.y - a.y) - 1LL * (p.x - a.x) * (b.y - a.y);
 
-    double x_skrzyzowania = a.x + (double)(b.x - a.x) * (p.y - a.y) / (b.y - a.y); // w jakim miejscu odcinek ab przecina poziomą linię y = p.y
-
-    return x_skrzyzowania > p.x;  // jeżeli punkt przecięcia leży na prawo od punktu p to półprosta przecina krawędź
+    return det > 0; // jeśli det > 0, przecięcie jest na prawo od punktu p (czyli półprosta przecina krawędź)
 }
+
 
 bool punkt_w_wielokacie(Point p, const std::vector<Point>& wielokat) {
     int n = wielokat.size();
